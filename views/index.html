@@ -10,7 +10,7 @@
       width: 100%;
     }
     th, td {
-      border: 1px solid rgb(0, 0, 0);
+      border: 1px solid black;
       padding: 8px;
       text-align: left;
     }
@@ -22,7 +22,7 @@
 <body>
   <h2>Student Management System</h2>
   <h3>Register Students</h3>
-  <form id="registerForm" action="http://localhost:3002/register" method="post">
+  <form id="registerForm" action="/register" method="post">
     <label for="name">Name:</label>
     <input type="text" id="name" name="name" required><br><br>
     <label for="stream">Stream:</label>
@@ -45,8 +45,6 @@
     <tbody id="studentsTableBody">
     </tbody>
   </table>
-
-  <!-- Other sections omitted for brevity -->
 
   <script src="script.js"></script>
 </body>

@@ -1,45 +1,61 @@
-const express = require('express');
-const fs = require('fs');
-const bodyParser = require('body-parser');
-const app = express();
-const PORT = process.env.PORT || 3002;
+const express = require('express')
+const fs = require('fs')
+const bodyParser = require('body-parser')
+const path = require('path')
+const app = express()
+const PORT = process.env.PORT || 3005
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.json());
-app.use(express.static('public'));
+const studentsFile = path.join(__dirname, 'students.json')
+
+
+if (!fs.existsSync(studentsFile)) {
+  fs.writeFileSync(studentsFile, JSON.stringify([]))
+}
+
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(express.json())
+app.use(express.static(path.join(__dirname)))
 
 app.post('/register', (req, res) => {
   const { name, stream, form } = req.body;
-  const admissionNumber = Math.floor(Math.random() * 1000000);
-  const student = { admissionNumber, name, stream, form };
+  const admissionNumber = Math.floor(Math.random() * 1000000)
+  const student = { admissionNumber, name, stream, form }
 
-  console.log('New student registered:', student); 
-
-  let students = [];
+  let students = []
   try {
-    const data = fs.readFileSync('students.json', 'utf8');
-    students = JSON.parse(data);
+    const data = fs.readFileSync(studentsFile, 'utf8')
+    students = JSON.parse(data)
   } catch (err) {
-    console.error('Error reading students file:', err);
+    console.error('Error reading students file:', err)
   }
 
-  students.push(student);
+  students.push(student)
 
-  fs.writeFile('students.json', JSON.stringify(students, null, 2), err => {
+  fs.writeFile(studentsFile, JSON.stringify(students, null, 2), err => {
     if (err) {
-      console.error('Error writing students file:', err);
-      res.status(500).send('Internal Server Error');
+      console.error('Error writing students file:', err)
+      res.status(500).send('Internal Server Error')
     } else {
-      console.log('Sending response to client:', student); 
-      //res.json(student);
+      res.json(student)
     }
   });
 });
 
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/index.html');
+  res.sendFile(path.join(__dirname, 'index.html'))
 });
 
+app.get('/students', (req, res) => {
+  try {
+    const data = fs.readFileSync(studentsFile, 'utf8')
+    const students = JSON.parse(data)
+    res.json(students)
+  } catch (err) {
+    console.error('Error reading students file:', err)
+    res.status(500).send('Internal Server Error')
+  }
+})
+
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`Server is running on port ${PORT}`)
 });
