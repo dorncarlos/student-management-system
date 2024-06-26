@@ -21,30 +21,92 @@
 </head>
 <body>
   <h2>Student Management System</h2>
-  <h3>Register Students</h3>
-  <form id="registerForm" action="/register" method="post">
-    <label for="name">Name:</label>
-    <input type="text" id="name" name="name" required><br><br>
-    <label for="stream">Stream:</label>
-    <input type="text" id="stream" name="stream" required><br><br>
-    <label for="form">Form:</label>
-    <input type="text" id="form" name="form" required><br><br>
-    <button type="submit">Register</button>
-  </form>
 
-  <h3>All Students</h3>
-  <table>
-    <thead>
-      <tr>
-        <th>Admission Number</th>
-        <th>Name</th>
-        <th>Stream</th>
-        <th>Form</th>
-      </tr>
-    </thead>
-    <tbody id="studentsTableBody">
-    </tbody>
-  </table>
+  <div id="loginPage">
+    <h3>Login</h3>
+    <form id="loginForm">
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" required><br><br>
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required><br><br>
+      <button type="submit">Login</button>
+    </form>
+  </div>
+
+  <div id="mainContent" style="display:none;">
+    <h3>Register Students</h3>
+    <form id="registerForm" action="/register" method="post">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required><br><br>
+      <label for="stream">Stream:</label>
+      <input type="text" id="stream" name="stream" required><br><br>
+      <label for="form">Form:</label>
+      <input type="text" id="form" name="form" required><br><br>
+      <button type="submit">Register</button>
+    </form>
+    
+    <h3>All Students</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Admission Number</th>
+          <th>Name</th>
+          <th>Stream</th>
+          <th>Form</th>
+        </tr>
+      </thead>
+      <tbody id="studentsTableBody">
+      </tbody>
+    </table>
+    
+    <h3>Enter Student Marks</h3>
+    <form id="marksForm" action="/submitMarks" method="post">
+      <label for="student">Student:</label>
+      <select id="student" name="student" required>
+      </select><br><br>
+      <label for="subject">Subject:</label>
+      <select id="subject" name="subject" required>
+        <option value="Mathematics">Mathematics</option>
+        <option value="English">English</option>
+        <option value="Science">Science</option>
+        <option value="History">History</option>
+        <option value="Business">Business</option>
+        <option value="Agriculture">Agriculture</option>
+        <option value="Physics">Physics</option>
+        <option value="Chemistry">Chemistry</option>
+      </select><br><br>
+      <label for="marks">Marks:</label>
+      <input type="number" id="marks" name="marks" required><br><br>
+      <button type="submit">Submit Marks</button>
+    </form>
+    
+    <h3>All Marks</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Student</th>
+          <th>Subject</th>
+          <th>Marks</th>
+        </tr>
+      </thead>
+      <tbody id="marksTableBody">
+      </tbody>
+    </table>
+    
+    <h3>Student Rankings</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Admission Number</th>
+          <th>Total Marks</th>
+          <th>Grade</th>
+        </tr>
+      </thead>
+      <tbody id="rankingsTableBody">
+      </tbody>
+    </table>
+  </div>
 
   <script src="script.js"></script>
 </body>
